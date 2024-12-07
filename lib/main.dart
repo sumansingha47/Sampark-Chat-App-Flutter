@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sampark_chat_app_24/Config/PagePath.dart';
 import 'package:sampark_chat_app_24/Config/Themes.dart';
+import 'package:sampark_chat_app_24/Pages/Auth/AuthPage.dart';
+import 'package:sampark_chat_app_24/Pages/HomePage/HomePage.dart';
 import 'package:sampark_chat_app_24/Pages/SplashPage/SplashPage.dart';
 import 'package:sampark_chat_app_24/Pages/Welcome/WelcomePage.dart';
 
@@ -12,12 +16,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Sampark',
       theme: lightTheme,
+      getPages: pagePath,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      home: const WelcomePage(),
+      home: const HomePage(),
     );
   }
 }
