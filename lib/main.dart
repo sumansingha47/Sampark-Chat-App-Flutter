@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:sampark_chat_app_24/Config/PagePath.dart';
 import 'package:sampark_chat_app_24/Config/Themes.dart';
 import 'package:sampark_chat_app_24/Pages/Auth/AuthPage.dart';
-import 'package:sampark_chat_app_24/Pages/HomePage/HomePage.dart';
+import 'package:sampark_chat_app_24/Pages/Home/HomePage.dart';
 import 'package:sampark_chat_app_24/Pages/SplashPage/SplashPage.dart';
 import 'package:sampark_chat_app_24/Pages/Welcome/WelcomePage.dart';
 
