@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:sampark_chat_app_24/Config/Images.dart';
 import 'package:sampark_chat_app_24/Config/Strings.dart';
 import 'package:sampark_chat_app_24/Pages/Home/Widget/ChatList.dart';
@@ -37,7 +38,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed("/profilePage");
+            },
             icon: const Icon(
               Icons.more_vert,
             ),
