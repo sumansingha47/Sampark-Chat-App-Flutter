@@ -15,7 +15,8 @@ var pagePath = [
     transition: Transition.rightToLeft,
   ),
   GetPage(
-      name: "/chatPage",
-      page: () => const ChatPage(),
-      transition: Transition.rightToLeft),
+    name: "/chatPage",
+    page: () => const ChatPage(),
+    transition: Transition.rightToLeft,
+  ),
 ];

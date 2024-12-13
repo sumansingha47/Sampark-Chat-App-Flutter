@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sampark_chat_app_24/Controller/AuthController.dart';
 import 'package:sampark_chat_app_24/Widgets/PrimaryButton.dart';
 
 class SignupForm extends StatelessWidget {
@@ -6,11 +8,16 @@ class SignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthController authController = Get.put(AuthController());
+    TextEditingController name = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
     return Column(
       children: [
         const SizedBox(height: 40),
-        const TextField(
-          decoration: InputDecoration(
+        TextField(
+          controller: name,
+          decoration: const InputDecoration(
             hintText: "Full Name",
             prefixIcon: Icon(
               Icons.person,
@@ -18,8 +25,9 @@ class SignupForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 30),
-        const TextField(
-          decoration: InputDecoration(
+        TextField(
+          controller: email,
+          decoration: const InputDecoration(
             hintText: "Email",
             prefixIcon: Icon(
               Icons.alternate_email_rounded,
@@ -27,8 +35,9 @@ class SignupForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 30),
-        const TextField(
-          decoration: InputDecoration(
+        TextField(
+          controller: password,
+          decoration: const InputDecoration(
             hintText: "Password",
             prefixIcon: Icon(
               Icons.password_outlined,
@@ -36,15 +45,24 @@ class SignupForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 60),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PrimaryButton(
-              onTap: () {},
-              btnName: "SIGN UP",
-              icon: Icons.lock_open_outlined,
-            ),
-          ],
+        Obx(
+          () => authController.isLoading.value
+              ? CircularProgressIndicator()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PrimaryButton(
+                      onTap: () {
+                        authController.createUser(
+                          email.text,
+                          password.text,
+                        );
+                      },
+                      btnName: "SIGN UP",
+                      icon: Icons.lock_open_outlined,
+                    ),
+                  ],
+                ),
         ),
       ],
     );
