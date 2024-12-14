@@ -1,10 +1,13 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:sampark_chat_app_24/Model/UserModel.dart';
 
 class AuthController extends GetxController {
   final auth = FirebaseAuth.instance;
+  final db = FirebaseFirestore.instance;
   RxBool isLoading = false.obs;
 
   // FOR LOGIN
@@ -16,6 +19,7 @@ class AuthController extends GetxController {
         email: email,
         password: password,
       );
+      Get.offAllNamed("/homePage");
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         log("No user found for that email.");
@@ -31,15 +35,16 @@ class AuthController extends GetxController {
     isLoading.value = false;
   }
 
-  Future<void> createUser(String email, String password) async {
+  Future<void> createUser(String email, String password, String name) async {
     isLoading.value = true;
     try {
       await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      await initUser(email, name);
       log("Account Created!");
-      Get.toNamed("/loginPage");
+      Get.offAllNamed("/homePage");
     } on FirebaseAuthException catch (e) {
       if (e.code == "weak-pasword") {
         log("The password provided is too weak.");
@@ -50,5 +55,25 @@ class AuthController extends GetxController {
       log(e.toString());
     }
     isLoading.value = false;
+  }
+
+  Future<void> logoutUser() async {
+    await auth.signOut();
+    Get.offAllNamed("/authPage");
+  }
+
+  Future<void> initUser(String email, String name) async {
+    var newUser = UserModel(
+      email: email,
+      name: name,
+      id: auth.currentUser!.uid,
+    );
+    try {
+      await db.collection("users").doc(auth.currentUser!.uid).set(
+            newUser.toJson(),
+          );
+    } catch (ex) {
+      log("AuthController - initUser => $ex");
+    }
   }
 }
