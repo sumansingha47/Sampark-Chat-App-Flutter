@@ -5,6 +5,7 @@ import 'package:sampark_chat_app_24/Config/Images.dart';
 import 'package:sampark_chat_app_24/Config/Strings.dart';
 import 'package:sampark_chat_app_24/Pages/Home/Widget/ChatList.dart';
 import 'package:sampark_chat_app_24/Pages/Home/Widget/TabBar.dart';
+import 'package:sampark_chat_app_24/Pages/ProfilePage/ProfilePage.dart';
 
 import '../../Controller/ProfileController.dart';
 
@@ -43,7 +44,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           IconButton(
             onPressed: () {
-              Get.toNamed("/profilePage");
+              // Get.toNamed("/profilePage");
+              Get.to(() => const ProfilePage());
             },
             icon: const Icon(
               Icons.more_vert,
